@@ -1,0 +1,15 @@
+.btn-radio-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  font-family: "Barlow", sans-serif;
+  font-weight: 200;
+}
+
+.btn-radio {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -1,0 +1,127 @@
+.op-form-wrapper {
+  width: 100%;
+  max-width: 530px;
+  margin-top: 2rem;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  align-items: flex-start;
+  text-align: left;
+  min-width: 300px;
+}
+
+.op-form-title {
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  color: #292929;
+  margin-bottom: 1rem;
+}
+
+.product-stats-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+  font-family: "Barlow", sans-serif;
+}
+
+.product-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+}
+
+.product-social {
+  display: flex;
+  gap: 2rem;
+  color: var(--light-gray);
+}
+
+.product-score {
+  font-weight: 600;
+}
+
+.product-summary {
+  font-family: "Barlow", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  line-height: 1.5rem;
+  text-align: justify;
+}
+
+.product-selection {
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.size-selection {
+  width: 50%;
+}
+
+.dough-selection {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dough-options {
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  width: 8rem;
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px 10px;
+  margin-top: 2rem;
+}
+
+.order-note-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.textarea-order-note {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 4rem;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-family: "Barlow", sans-serif;
+  font-weight: 450;
+}
+
+.order-note-section textarea::placeholder {
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+}
+
+hr {
+  border: 0;
+  border-top: 2px solid #ccc;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.order-result {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media (max-width: 480px) {
+  .ingredients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
