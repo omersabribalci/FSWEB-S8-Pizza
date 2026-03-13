@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./OrderPageForm.css";
 import RadioButton from "./RadioButton";
 import OrderPageCheckbox from "./OrderPageCheckbox";
-
+import axios from "axios";
 const pizzaSizes = ["Küçük", "Orta", "Büyük"];
 const extraIngredients = [
   "Pepperoni",
@@ -20,17 +20,78 @@ const extraIngredients = [
   "Ananas",
   "Kabak",
 ];
+const pizzaPrice = 85.5;
+const extraItemPrice = 5;
 const initialFormData = {
   userName: "",
   size: "",
   dough: "",
   ingredients: [],
   note: "",
-  count: 1,
+  amount: 1,
   totalPrice: "",
+};
+const errorMessages = {
+  size: "Lütfen boyut seçiniz !",
+  dough: "Lütfen hamur tipi seçiniz !",
+  ingredients: "Lütfen en az 4 tane malzeme seçiniz !",
+  userName: "Lütfen isminizi giriniz !",
 };
 export default function OrderPageForm() {
   const [formData, setFormData] = useState(initialFormData);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [errors, setErrors] = useState({
+    size: "",
+    dough: "",
+    ingredients: "",
+    userName: "",
+  });
+
+  useEffect(() => {
+    const total =
+      pizzaPrice * formData.amount +
+      formData.ingredients.length * extraItemPrice;
+
+    setFormData((prev) => ({ ...prev, totalPrice: total }));
+  }, [formData.amount, formData.ingredients]);
+
+  useEffect(() => {
+    let newErrors = {
+      size: "",
+      dough: "",
+      ingredients: "",
+      userName: "",
+    };
+
+    if (!formData.size) {
+      newErrors.size = errorMessages.size;
+    }
+
+    if (!formData.dough) {
+      newErrors.dough = errorMessages.dough;
+    }
+
+    if (formData.ingredients.length < 4) {
+      newErrors.ingredients = errorMessages.ingredients;
+    }
+
+    if (formData.userName.length < 3) {
+      newErrors.userName = errorMessages.userName;
+    }
+
+    setErrors(newErrors);
+
+    if (
+      !newErrors.size &&
+      !newErrors.dough &&
+      !newErrors.ingredients &&
+      !newErrors.userName
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [formData]);
 
   function handleChange(e) {
     let { name, value, type, checked } = e.target;
@@ -54,13 +115,32 @@ export default function OrderPageForm() {
     }
   }
 
-  console.log(formData);
+  function handleAmountChange(type) {
+    if (type === "increase") {
+      setFormData({ ...formData, amount: formData.amount + 1 });
+    } else if (type === "decrease" && formData.amount > 1) {
+      setFormData({ ...formData, amount: formData.amount - 1 });
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (isFormValid) {
+      axios
+        .post("https://reqres.in/api/pizza", formData, {
+          headers: {
+            "x-api-key": "reqres_6c48c9d1f92f49028935d3ed2b82e173",
+          },
+        })
+        .then((res) => console.log(res.data));
+    }
+  }
 
   return (
-    <div className="op-form-wrapper">
+    <form onSubmit={handleSubmit} className="op-form-wrapper">
       <h2 className="op-form-title">Position Absolute Acı Pizza</h2>
       <div className="product-stats-container">
-        <div className="product-price">85.50₺</div>
+        <div className="product-price">{pizzaPrice}₺</div>
 
         <div className="product-social">
           <span className="rating-score">4.9</span>
@@ -89,6 +169,7 @@ export default function OrderPageForm() {
               id={item}
             />
           ))}
+          {errors.size && <span className="error-text">{errors.size}</span>}
         </div>
         <div className="dough-selection">
           <label className="op-form-title" htmlFor="dough">
@@ -108,12 +189,13 @@ export default function OrderPageForm() {
             <option value="normal">Normal</option>
             <option value="kalın">Kalın</option>
           </select>
+          {errors.dough && <span className="error-text">{errors.dough}</span>}
         </div>
       </div>
       <div className="ingredients-selection">
         <h2 className="op-form-title">Ek Malzemeler</h2>
         <p className="product-summary">
-          En fazla 10 malzeme seçebilirsiniz. 5₺
+          En az 4, en fazla 10 malzeme seçebilirsiniz. 5₺
         </p>
         <div className="ingredients-grid">
           {extraIngredients.map((item) => (
@@ -128,12 +210,31 @@ export default function OrderPageForm() {
             />
           ))}
         </div>
+        {errors.ingredients && (
+          <span className="error-text">{errors.ingredients}</span>
+        )}
+      </div>
+      <div className="user-name-wrapper">
+        <label className="op-form-title" htmlFor="userName">
+          İsim
+        </label>
+        <input
+          type="text"
+          id="userName"
+          value={formData.userName}
+          onChange={handleChange}
+          name="userName"
+        />
+        {errors.userName && (
+          <span className="error-text">{errors.userName}</span>
+        )}
       </div>
       <div className="order-note-section">
         <label htmlFor="order-note" className="op-form-title">
           Sipariş Notu
         </label>
         <textarea
+          maxLength={136}
           className="textarea-order-note"
           name="note"
           id="order-note"
@@ -145,25 +246,39 @@ export default function OrderPageForm() {
       <hr />
       <div className="order-result">
         <div className="order-amount">
-          <button className="btn-amount-change">-</button>
-          <span className="amount">1</span>
-          <button className="btn-amount-change">+</button>
+          <button
+            type="button"
+            className="btn-amount-change-left"
+            onClick={() => handleAmountChange("decrease")}
+          >
+            -
+          </button>
+          <span className="amount">{formData.amount}</span>
+          <button
+            type="button"
+            className="btn-amount-change-right"
+            onClick={() => handleAmountChange("increase")}
+          >
+            +
+          </button>
         </div>
         <div className="result-section">
           <div className="order-price">
             <h2 className="op-form-title">Sipariş Toplamı</h2>
             <div className="result-lines">
               <span>Seçimler</span>
-              <span>25.00₺</span>
+              <span>{formData.ingredients.length * extraItemPrice}₺</span>
             </div>
-            <div className="result-lines">
+            <div className="result-lines-total">
               <span>Toplam</span>
-              <span>110.50₺</span>
+              <span>{formData.totalPrice}₺</span>
             </div>
           </div>
-          <button className="order-button">SİPARİŞ VER</button>
         </div>
       </div>
-    </div>
+      <button disabled={!isFormValid} className="order-button">
+        SİPARİŞ VER
+      </button>
+    </form>
   );
 }

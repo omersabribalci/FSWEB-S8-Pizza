@@ -19,7 +19,9 @@ export default function OrderPageCheckbox({
         checked={checked}
         id={id}
       />
-      <label htmlFor={id}>{label}</label>
+      <label className="checkbox-label" htmlFor={id}>
+        {label}
+      </label>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export default function OrderPageHeader() {
   return (
     <>
       <div className="op-header-wrapper">
-        <h1 className="op-header-title">Teknolojik Yemekler</h1>
+        <img src="../../images/iteration-1-images/logo.svg" alt="" />
         <div className="op-header-nav-wrapper">
           <NavLink
             className="op-header-nav"
@@ -16,17 +16,6 @@ export default function OrderPageHeader() {
             })}
           >
             Ana Sayfa
-          </NavLink>
-          <span style={{ color: "white" }}>-</span>
-          <NavLink
-            className="op-header-nav"
-            to="/options"
-            style={({ isActive }) => ({
-              fontWeight: isActive ? "bold" : "normal",
-              opacity: isActive ? 1 : 0.7,
-            })}
-          >
-            Seçenekler
           </NavLink>
           <span style={{ color: "white" }}>-</span>
           <NavLink
