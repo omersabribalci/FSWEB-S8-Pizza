@@ -31,6 +31,7 @@ const initialFormData = {
   ingredients: [],
   note: "",
   amount: 1,
+  extraItemTotalPrice: "",
   totalPrice: "",
 };
 const errorMessages = {
@@ -51,12 +52,16 @@ export default function OrderPageForm() {
   });
 
   useEffect(() => {
+    const extraItem = formData.ingredients.length * extraItemPrice;
+
+    setFormData((prev) => ({ ...prev, extraItemTotalPrice: extraItem }));
+
     const total =
       pizzaPrice * formData.amount +
       formData.ingredients.length * extraItemPrice;
 
     setFormData((prev) => ({ ...prev, totalPrice: total }));
-  }, [formData.amount, formData.ingredients]);
+  }, [formData.amount, formData.ingredients, formData.extraItemTotalPrice]);
 
   useEffect(() => {
     let newErrors = {
@@ -276,7 +281,7 @@ export default function OrderPageForm() {
             <h2 className="op-form-title">Sipariş Toplamı</h2>
             <div className="result-lines">
               <span>Seçimler</span>
-              <span>{formData.ingredients.length * extraItemPrice}₺</span>
+              <span>{formData.extraItemTotalPrice}₺</span>
             </div>
             <div className="result-lines-total">
               <span>Toplam</span>
