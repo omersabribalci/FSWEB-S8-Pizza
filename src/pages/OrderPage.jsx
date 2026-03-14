@@ -1,5 +1,6 @@
-import OrderPageForm from "../components/OrderPageForm";
-import OrderPageHeader from "../components/OrderPageHeader";
+import OrderPageForm from "../components/OrderPage/OrderPageForm";
+import OrderPageHeader from "../components/OrderPage/OrderPageHeader";
+
 
 export default function OrderPage() {
   return (

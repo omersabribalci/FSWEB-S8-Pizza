@@ -115,10 +115,10 @@ export default function OrderPageForm() {
     }
   }
 
-  function handleAmountChange(type) {
-    if (type === "increase") {
+  function handleAmountChange(name) {
+    if (name === "increase") {
       setFormData({ ...formData, amount: formData.amount + 1 });
-    } else if (type === "decrease" && formData.amount > 1) {
+    } else if (name === "decrease" && formData.amount > 1) {
       setFormData({ ...formData, amount: formData.amount - 1 });
     }
   }
@@ -234,7 +234,7 @@ export default function OrderPageForm() {
           Sipariş Notu
         </label>
         <textarea
-          maxLength={136}
+          maxLength={140}
           className="textarea-order-note"
           name="note"
           id="order-note"
@@ -247,7 +247,8 @@ export default function OrderPageForm() {
       <div className="order-result">
         <div className="order-amount">
           <button
-            type="button"
+            disabled={formData.amount <= 1}
+            name="button"
             className="btn-amount-change-left"
             onClick={() => handleAmountChange("decrease")}
           >
@@ -255,7 +256,7 @@ export default function OrderPageForm() {
           </button>
           <span className="amount">{formData.amount}</span>
           <button
-            type="button"
+            name="button"
             className="btn-amount-change-right"
             onClick={() => handleAmountChange("increase")}
           >
