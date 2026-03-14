@@ -3,6 +3,8 @@ import "./OrderPageForm.css";
 import RadioButton from "./RadioButton";
 import OrderPageCheckbox from "./OrderPageCheckbox";
 import axios from "axios";
+import { useNavigate } from "react-router";
+
 const pizzaSizes = ["Küçük", "Orta", "Büyük"];
 const extraIngredients = [
   "Pepperoni",
@@ -38,6 +40,7 @@ const errorMessages = {
   userName: "Lütfen isminizi giriniz !",
 };
 export default function OrderPageForm() {
+  let navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({
@@ -132,7 +135,7 @@ export default function OrderPageForm() {
             "x-api-key": "reqres_6c48c9d1f92f49028935d3ed2b82e173",
           },
         })
-        .then((res) => console.log(res.data));
+        .then((res) => navigate("/success"));
     }
   }
 
@@ -181,6 +184,7 @@ export default function OrderPageForm() {
             name="dough"
             id="dough"
             onChange={handleChange}
+            data-cy="dough-select"
           >
             <option value="" disabled>
               Hamur Kalınlığı
@@ -224,6 +228,7 @@ export default function OrderPageForm() {
           value={formData.userName}
           onChange={handleChange}
           name="userName"
+          data-cy="username-input"
         />
         {errors.userName && (
           <span className="error-text">{errors.userName}</span>
@@ -241,12 +246,14 @@ export default function OrderPageForm() {
           placeholder="Siparişine eklemek istediğin bir not var mı?"
           value={formData.note}
           onChange={handleChange}
+          data-cy="order-note"
         ></textarea>
       </div>
       <hr />
       <div className="order-result">
         <div className="order-amount">
           <button
+            type="button"
             disabled={formData.amount <= 1}
             name="button"
             className="btn-amount-change-left"
@@ -256,6 +263,7 @@ export default function OrderPageForm() {
           </button>
           <span className="amount">{formData.amount}</span>
           <button
+            type="button"
             name="button"
             className="btn-amount-change-right"
             onClick={() => handleAmountChange("increase")}
@@ -277,7 +285,11 @@ export default function OrderPageForm() {
           </div>
         </div>
       </div>
-      <button disabled={!isFormValid} className="order-button">
+      <button
+        disabled={!isFormValid}
+        className="order-button"
+        data-cy="order-btn"
+      >
         SİPARİŞ VER
       </button>
     </form>

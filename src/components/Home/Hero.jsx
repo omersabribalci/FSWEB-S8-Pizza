@@ -10,7 +10,11 @@ export default function Hero() {
           <h1 className="hero-title">
             KOD ACIKTIRIR <br /> PİZZA, DOYURUR
           </h1>
-          <Link className="hero-order-link" to="/order">
+          <Link
+            data-cy="hero-order-link"
+            className="hero-order-link"
+            to="/order"
+          >
             ACIKTIM
           </Link>
         </div>
