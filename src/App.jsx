@@ -65,7 +65,6 @@ function App() {
         })
         .then((res) => {
           setApiResponse(res.data);
-
           navigate("/success");
         })
         .catch((err) => {

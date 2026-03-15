@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import "./OrderPageForm.css";
 import RadioButton from "./RadioButton";
 import OrderPageCheckbox from "./OrderPageCheckbox";
-import axios from "axios";
-import { useNavigate } from "react-router";
 
 const pizzaSizes = ["Küçük", "Orta", "Büyük"];
 const extraIngredients = [
