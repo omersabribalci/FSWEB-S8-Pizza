@@ -1,4 +1,5 @@
 import "./Hero.css";
+import logo from "./../../assets/logo.svg";
 import { Link } from "react-router";
 
 export default function Hero() {
@@ -6,7 +7,7 @@ export default function Hero() {
     <div className="hero-wrapper">
       <div className="hero-section">
         <div className="hero-container">
-          <img src="./assets/logo.svg" alt="" />
+          <img src={logo} alt="" />
           <h1 className="hero-title">
             KOD ACIKTIRIR <br /> PİZZA, DOYURUR
           </h1>
