@@ -7,7 +7,7 @@ export default function OrderPageHeader() {
       <div className="op-header-wrapper">
         <img src="../../images/iteration-1-images/logo.svg" alt="" />
         <div className="op-header-nav-wrapper">
-          <NavLink
+          <NavLink //stil düzeltilmeli
             className="op-header-nav"
             to="/"
             style={({ isActive }) => ({

@@ -91,6 +91,7 @@ export default function OrderPageForm({
   }, [formData]);
 
   return (
+    //componentlere ayır..
     <form onSubmit={handleSubmit} className="op-form-wrapper">
       <h2 className="op-form-title">Position Absolute Acı Pizza</h2>
       <div className="product-stats-container">

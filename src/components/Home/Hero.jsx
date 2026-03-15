@@ -6,7 +6,7 @@ export default function Hero() {
     <div className="hero-wrapper">
       <div className="hero-section">
         <div className="hero-container">
-          <img src="../../images/iteration-1-images/logo.svg" alt="" />
+          <img src="../../assets/logo.svg" alt="" />
           <h1 className="hero-title">
             KOD ACIKTIRIR <br /> PİZZA, DOYURUR
           </h1>

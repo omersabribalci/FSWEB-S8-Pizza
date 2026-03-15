@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../../../images/iteration-1-images/logo.svg";
+import logo from "../../assets/logo.svg";
 import { useNavigate } from "react-router";
 
 const SuccessPageWrapper = styled.div`
