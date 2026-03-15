@@ -1,11 +1,11 @@
 import "./OrderPageHeader.css";
 import { NavLink } from "react-router";
-
+import logo from "./../../assets/logo.svg";
 export default function OrderPageHeader() {
   return (
     <>
       <div className="op-header-wrapper">
-        <img src="./../../assets/logo.svg" alt="" />
+        <img src={logo} alt="" />
         <div className="op-header-nav-wrapper">
           <NavLink //stil düzeltilmeli
             className="op-header-nav"
