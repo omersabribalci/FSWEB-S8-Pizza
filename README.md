@@ -186,10 +186,10 @@ Zamanı verimli kullanmak için aşağıdaki sırayla geliştirme yapmanı tavsi
 
 IT1'i bitirdikten sonra çalışmanı daha da ileri götürebilirsin. Buradaki hedefler, bu modülde öğrendiklerinizin dışında şeyler de olabilir. Yine de IT1'de bitirdiğiniz yapı üzerine inşa edilecek. Kendine bunları yapmak için mutlaka zaman tanı, sınırlarını zorla ve aşağıdaki hedeflere ulaşıp ulaşamayacağına bak:
 
-- [ ] Tasarım güncellemesi: **Sipariş** sayfasında, sipariş özetini görüntüle.
-  - [ ] Diğer sayfaya veriyi, useState hookunu, state lifting yaparak aktarmalısın. Başka bir paket ya da teknik kulllanılmamalı.
-  - [ ] Axios yanıtını sonraki onay sayfasında göstermelisin.
-  - [ ] Sipariş POST edilirken bir ağ hatası olasılığı için kullanıcıya geribildirim verebilmelisin (örnek: İnternet'e bağlanılamadı)
+- [+] Tasarım güncellemesi: **Sipariş** sayfasında, sipariş özetini görüntüle.
+  - [+] Diğer sayfaya veriyi, useState hookunu, state lifting yaparak aktarmalısın. Başka bir paket ya da teknik kulllanılmamalı.
+  - [+] Axios yanıtını sonraki onay sayfasında göstermelisin.
+  - [+] Sipariş POST edilirken bir ağ hatası olasılığı için kullanıcıya geribildirim verebilmelisin (örnek: İnternet'e bağlanılamadı)
 - [ ] Tasarım Güncellemesi: **Anasayfa** çok daha çeşitli tasarım öğeleriyle zenginleştir.
 - [ ] Tasarım Güncellemesi: **Sipariş** Form elemanlarını (inputlar), özel renk ve tasarım diline göre güncelle
 - [ ] Cypressle daha çok test yaz.

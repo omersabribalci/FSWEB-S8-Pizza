@@ -22,46 +22,37 @@ const extraIngredients = [
   "Ananas",
   "Kabak",
 ];
-const pizzaPrice = 85.5;
-const extraItemPrice = 5;
-const initialFormData = {
-  userName: "",
-  size: "",
-  dough: "",
-  ingredients: [],
-  note: "",
-  amount: 1,
-  extraItemTotalPrice: "",
-  totalPrice: "",
-};
+
 const errorMessages = {
   size: "Lütfen boyut seçiniz !",
   dough: "Lütfen hamur tipi seçiniz !",
   ingredients: "Lütfen en az 4 tane malzeme seçiniz !",
   userName: "Lütfen isminizi giriniz !",
 };
-export default function OrderPageForm() {
-  let navigate = useNavigate();
-  const [formData, setFormData] = useState(initialFormData);
-  const [isFormValid, setIsFormValid] = useState(false);
+export default function OrderPageForm({
+  formData,
+  setFormData,
+  initialFormData,
+  handleChange,
+  handleAmountChange,
+  handleSubmit,
+  pizzaPrice,
+  extraItemPrice,
+  isFormValid,
+  setIsFormValid,
+  errorMessage,
+}) {
   const [errors, setErrors] = useState({
     size: "",
     dough: "",
     ingredients: "",
     userName: "",
   });
-
-  useEffect(() => {
-    const extraItem = formData.ingredients.length * extraItemPrice;
-
-    setFormData((prev) => ({ ...prev, extraItemTotalPrice: extraItem }));
-
-    const total =
-      pizzaPrice * formData.amount +
-      formData.ingredients.length * extraItemPrice;
-
-    setFormData((prev) => ({ ...prev, totalPrice: total }));
-  }, [formData.amount, formData.ingredients, formData.extraItemTotalPrice]);
+  const extraItemTotalPrice =
+    formData.ingredients.length * extraItemPrice * formData.amount;
+  const totalPrice =
+    (pizzaPrice + formData.ingredients.length * extraItemPrice) *
+    formData.amount;
 
   useEffect(() => {
     let newErrors = {
@@ -100,49 +91,6 @@ export default function OrderPageForm() {
       setIsFormValid(false);
     }
   }, [formData]);
-
-  function handleChange(e) {
-    let { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      const oldIngredients = [...formData.ingredients];
-      let newIngredients;
-
-      if (checked) {
-        if (oldIngredients.length < 10) {
-          newIngredients = [...oldIngredients, value];
-        } else {
-          newIngredients = oldIngredients;
-        }
-      } else {
-        newIngredients = oldIngredients.filter((item) => item !== value);
-      }
-      setFormData({ ...formData, ingredients: newIngredients });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  }
-
-  function handleAmountChange(name) {
-    if (name === "increase") {
-      setFormData({ ...formData, amount: formData.amount + 1 });
-    } else if (name === "decrease" && formData.amount > 1) {
-      setFormData({ ...formData, amount: formData.amount - 1 });
-    }
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (isFormValid) {
-      axios
-        .post("https://reqres.in/api/pizza", formData, {
-          headers: {
-            "x-api-key": "reqres_6c48c9d1f92f49028935d3ed2b82e173",
-          },
-        })
-        .then((res) => navigate("/success"));
-    }
-  }
 
   return (
     <form onSubmit={handleSubmit} className="op-form-wrapper">
@@ -228,6 +176,7 @@ export default function OrderPageForm() {
           İsim
         </label>
         <input
+          maxLength={20}
           type="text"
           id="userName"
           value={formData.userName}
@@ -281,11 +230,11 @@ export default function OrderPageForm() {
             <h2 className="op-form-title">Sipariş Toplamı</h2>
             <div className="result-lines">
               <span>Seçimler</span>
-              <span>{formData.extraItemTotalPrice}₺</span>
+              <span>{extraItemTotalPrice}₺</span>
             </div>
             <div className="result-lines-total">
               <span>Toplam</span>
-              <span>{formData.totalPrice}₺</span>
+              <span>{totalPrice}₺</span>
             </div>
           </div>
         </div>
@@ -297,6 +246,7 @@ export default function OrderPageForm() {
       >
         SİPARİŞ VER
       </button>
+      {errorMessage && <p className="error-text">{errorMessage}</p>}
     </form>
   );
 }
